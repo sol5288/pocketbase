@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: pocketbase
+    restart: unless-stopped
+    command:
+      - --encryptionEnv #optional
+      - ENCRYPTION #optional
+    environment:
+      ENCRYPTION: pocketbase_po.hhuu.io_secret_char #optional if used make sure 32 char long key is used
+    ports:
+      - "8090:8090"
+    volumes:
+      - /path/to/data:/pb_data
+      - /path/to/public:/pb_public #optional
+      - /path/to/hooks:/pb_hooks #optional
+    healthcheck: #optional (recommended) since v0.10.0
+      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
