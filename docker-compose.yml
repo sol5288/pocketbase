@@ -4,11 +4,6 @@ services:
     image: ghcr.io/muchobien/pocketbase:latest
     container_name: pocketbase
     restart: unless-stopped
-    command:
-      - --encryptionEnv #optional
-      - ENCRYPTION #optional
-    environment:
-      ENCRYPTION: pocketbase_po.hhuu.io_secret_char #optional if used make sure 32 char long key is used
     ports:
       - "8090:8090"
     volumes:
